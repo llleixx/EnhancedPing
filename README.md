@@ -2,6 +2,8 @@
 
 [English](#english) | [中文](#中文)
 
+![EnhancedPing gameplay demo](https://raw.githubusercontent.com/llleixx/EnhancedPing/main/docs/media/enhanced-ping-demo.gif)
+
 ## English
 
 EnhancedPing expands PEAK's ping system with several practical features, while remaining fully client-side.

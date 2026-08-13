@@ -1,10 +1,9 @@
 {
   "name": "EnhancedPing",
   "version_number": "1.0.0",
-  "website_url": "https://github.com/lllei/EnhancedPing",
+  "website_url": "https://github.com/llleixx/EnhancedPing",
   "description": "Distance labels, reliable ghost pings, and spherical path-drawing pings for PEAK.",
   "dependencies": [
     "BepInEx-BepInExPack_PEAK-5.4.2403"
   ]
 }
-
