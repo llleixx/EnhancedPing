@@ -1,0 +1,6 @@
+artifacts/
+bin/
+obj/
+PeakGameDir.props
+.vs/
+
