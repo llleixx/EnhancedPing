@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BepInEx.Logging;
 using EnhancedPing.Core;
+using HarmonyLib;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,6 +17,10 @@ internal sealed class EnhancedPingController
     private readonly ManualLogSource _logger;
     private readonly PathPreview _preview = new();
     private readonly PingDistanceOverlay _distanceOverlay;
+    private readonly GhostReticleOverlay _ghostReticle = new();
+
+    private static readonly System.Reflection.MethodInfo? ReceivePointMethod =
+        AccessTools.Method(typeof(PointPinger), "ReceivePoint_Rpc");
 
     private PatchCapabilities _capabilities;
     private PathDrawingSession? _drawing;
@@ -110,22 +115,19 @@ internal sealed class EnhancedPingController
     public void DestroyDistanceOverlay()
     {
         _distanceOverlay.Dispose();
+        _ghostReticle.Dispose();
     }
 
     public void UpdateDeadReticle(GUIManager gui)
     {
         Character localCharacter = Character.localCharacter;
-        if (!_capabilities.DeadReticle || localCharacter == null || localCharacter.data == null ||
-            !localCharacter.data.dead || gui.reticleDefault == null)
-        {
-            return;
-        }
-
-        bool visible = _config.Enabled.Value && _config.ShowReticleWhenDead.Value &&
+        bool visible = _capabilities.DeadReticle && localCharacter != null &&
+                       localCharacter.data != null && localCharacter.data.dead &&
+                       _config.Enabled.Value && _config.GhostEnabled.Value &&
+                       _config.ShowReticleWhenDead.Value &&
                        Time.timeScale > 0f && !GUIManager.InPauseMenu &&
                        !gui.windowBlockingInput && !gui.wheelActive;
-        if (gui.reticleDefault.activeSelf != visible)
-            gui.reticleDefault.SetActive(visible);
+        _ghostReticle.Update(gui, visible);
     }
 
     public void Reset(string reason)
@@ -134,6 +136,7 @@ internal sealed class EnhancedPingController
         CancelDrawing(reason);
         CancelSequence();
         _distanceOverlay.Dispose();
+        _ghostReticle.Dispose();
         if (hadState)
             _logger.LogDebug($"Enhanced ping state reset: {reason}.");
     }
@@ -215,8 +218,37 @@ internal sealed class EnhancedPingController
     private void SendVanillaPing(PointPinger pinger, RuntimePingSample sample)
     {
         PhotonView view = pinger.GetComponent<PhotonView>();
-        if (view != null)
+        if (view == null)
+            return;
+
+        if (ReferenceEquals(pinger.character, Character.localCharacter))
+        {
             view.RPC("ReceivePoint_Rpc", RpcTarget.All, sample.Point, sample.Normal);
+            return;
+        }
+
+        view.RPC("ReceivePoint_Rpc", RpcTarget.Others, sample.Point, sample.Normal);
+        ShowPingLocally(pinger, sample);
+    }
+
+    private void ShowPingLocally(PointPinger pinger, RuntimePingSample sample)
+    {
+        Character actualLocalCharacter = Character.localCharacter;
+        try
+        {
+            // Vanilla visibility is measured from the ping owner to localCharacter. Ghost pings
+            // borrow the observed scout, so make that local check pass for this synchronous call.
+            Character.localCharacter = pinger.character;
+            ReceivePointMethod?.Invoke(pinger, new object[] { sample.Point, sample.Normal });
+        }
+        catch (Exception exception)
+        {
+            _logger.LogWarning($"Could not show an enhanced ping locally: {exception}");
+        }
+        finally
+        {
+            Character.localCharacter = actualLocalCharacter;
+        }
     }
 
     private bool CanStartEnhancedPing(PointPinger pinger, float timeLastPinged)
