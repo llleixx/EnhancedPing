@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1 - 2026-08-14
+
+- Updated the required BepInExPack_PEAK dependency to 5.4.75301.
+
 ## 1.0.0 - 2026-08-11
 
 - Added distance labels to visible pings from every scout.
