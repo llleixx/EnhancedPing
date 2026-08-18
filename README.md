@@ -2,6 +2,8 @@
 
 [English](#english) | [中文](#中文)
 
+Recommended companion mod / 推荐搭配使用：[FreeGhost](https://thunderstore.io/c/peak/p/lllei/FreeGhost/)
+
 ![EnhancedPing gameplay demo](https://raw.githubusercontent.com/llleixx/EnhancedPing/main/docs/media/enhanced-ping-demo.gif)
 
 ## English
