@@ -18,34 +18,34 @@ internal sealed class ModConfig
 
         DistanceEnabled = config.Bind("Distance", "Enabled", true, "Show distance on visible ping markers.");
         DistanceDecimalPlaces = config.Bind(
-            "Distance", "DecimalPlaces", 0,
+            "Distance", "Decimal Places", 0,
             new ConfigDescription("Number of decimal places used by distance labels.", new AcceptableValueRange<int>(0, 1)));
         DistanceFontSize = config.Bind(
-            "Distance", "FontSize", DefaultFontSize,
+            "Distance", "Font Size", DefaultFontSize,
             new ConfigDescription("Distance label font size.", new AcceptableValueRange<int>(10, 72)));
 
         GhostEnabled = config.Bind("Ghost", "Enabled", true, "Allow ping input while the local scout is dead.");
         ShowReticleWhenDead = config.Bind(
-            "Ghost", "ShowReticleWhenDead", true,
+            "Ghost", "Show Reticle When Dead", true,
             "Show PEAK's default center reticle while the local scout is dead.");
 
         PathEnabled = config.Bind("Path", "Enabled", true, "Hold the rebound Ping action and move the aim to draw a path.");
         MaximumPingPoints = config.Bind(
-            "Path", "MaximumPingPoints", DefaultMaximumPingPoints,
+            "Path", "Maximum Ping Points", DefaultMaximumPingPoints,
             new ConfigDescription("Maximum transmitted points, including the start and end.", new AcceptableValueRange<int>(2, 20)));
         MinimumCaptureAngleDegrees = config.Bind(
-            "Path", "MinimumCaptureAngleDegrees", DefaultMinimumCaptureAngle,
+            "Path", "Minimum Capture Angle Degrees", DefaultMinimumCaptureAngle,
             new ConfigDescription("Minimum angular movement between captured aim rays.", new AcceptableValueRange<float>(0.05f, 5f)));
         MinimumPathAngleDegrees = config.Bind(
-            "Path", "MinimumPathAngleDegrees", DefaultMinimumPathAngle,
+            "Path", "Minimum Path Angle Degrees", DefaultMinimumPathAngle,
             new ConfigDescription("Minimum cumulative angular movement required to classify a held Ping as a path.", new AcceptableValueRange<float>(0.1f, 30f)));
         PreferredPointDurationSeconds = config.Bind(
-            "Path", "PreferredPointDurationSeconds", DefaultPreferredPointDuration,
+            "Path", "Preferred Point Duration Seconds", DefaultPreferredPointDuration,
             new ConfigDescription("Preferred lifetime of each intermediate ping before the next replaces it.", new AcceptableValueRange<float>(0.05f, 1f)));
         MaximumSequenceDurationSeconds = config.Bind(
-            "Path", "MaximumSequenceDurationSeconds", DefaultMaximumSequenceDuration,
+            "Path", "Maximum Sequence Duration Seconds", DefaultMaximumSequenceDuration,
             new ConfigDescription("Maximum time from the first path ping until the endpoint appears.", new AcceptableValueRange<float>(1f, 10f)));
-        ShowPathPreview = config.Bind("Path", "ShowPreview", true, "Show a local line while drawing a path.");
+        ShowPathPreview = config.Bind("Path", "Show Preview", true, "Show a local line while drawing a path.");
     }
 
     public ConfigEntry<bool> Enabled { get; }

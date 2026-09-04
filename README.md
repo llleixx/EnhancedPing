@@ -40,19 +40,19 @@ The config file is generated at `BepInEx/config/com.github.lllei.EnhancedPing.cf
 |---|---:|---:|
 | `General.Enabled` | `true` | boolean |
 | `Distance.Enabled` | `true` | boolean |
-| `Distance.DecimalPlaces` | `0` | `0` to `1` |
-| `Distance.FontSize` | `24` | `10` to `72` |
+| `Distance.Decimal Places` | `0` | `0` to `1` |
+| `Distance.Font Size` | `24` | `10` to `72` |
 | `Ghost.Enabled` | `true` | boolean |
-| `Ghost.ShowReticleWhenDead` | `true` | boolean |
+| `Ghost.Show Reticle When Dead` | `true` | boolean |
 | `Path.Enabled` | `true` | boolean |
-| `Path.MaximumPingPoints` | `10` | `2` to `20` |
-| `Path.MinimumCaptureAngleDegrees` | `0.5` | `0.05` to `5` degrees |
-| `Path.MinimumPathAngleDegrees` | `1.5` | `0.1` to `30` degrees |
-| `Path.PreferredPointDurationSeconds` | `0.20` | `0.05` to `1` second |
-| `Path.MaximumSequenceDurationSeconds` | `2.0` | `1` to `10` seconds |
-| `Path.ShowPreview` | `true` | boolean |
+| `Path.Maximum Ping Points` | `10` | `2` to `20` |
+| `Path.Minimum Capture Angle Degrees` | `0.5` | `0.05` to `5` degrees |
+| `Path.Minimum Path Angle Degrees` | `1.5` | `0.1` to `30` degrees |
+| `Path.Preferred Point Duration Seconds` | `0.20` | `0.05` to `1` second |
+| `Path.Maximum Sequence Duration Seconds` | `2.0` | `1` to `10` seconds |
+| `Path.Show Preview` | `true` | boolean |
 
-Invalid numeric values are clamped or replaced with safe defaults at runtime. `MaximumPingPoints` includes the start and endpoint.
+Invalid numeric values are clamped or replaced with safe defaults at runtime. `Path.Maximum Ping Points` includes the start and endpoint.
 
 ### Compatibility notes
 
@@ -99,7 +99,7 @@ EnhancedPing 使用游戏中当前绑定的 Ping 操作，重新绑定后的键�
 
 启用路径绘制后，普通 Ping 会在松开按键时发出。关闭 `Path.Enabled` 即可恢复 PEAK 原本的按下触发方式。
 
-配置文件生成于 `BepInEx/config/com.github.lllei.EnhancedPing.cfg`，各配置键、默认值和范围见英文表格。`Path.MaximumPingPoints` 包含起点和终点，默认最多 10 个点。非法数值会在运行时钳制或回退。
+配置文件生成于 `BepInEx/config/com.github.lllei.EnhancedPing.cfg`，各配置键、默认值和范围见英文表格。`Path.Maximum Ping Points` 包含起点和终点，默认最多 10 个点。非法数值会在运行时钳制或回退。
 
 ### 兼容性说明
 

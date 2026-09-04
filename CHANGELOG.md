@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Changed BepInEx configuration keys to use space-separated names for readability. Existing configuration keys are not migrated.
+
 ## 1.0.1 - 2026-08-14
 
 - Updated the required BepInExPack_PEAK dependency to 5.4.75301.
